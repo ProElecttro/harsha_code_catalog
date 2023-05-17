@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notification Pop-up</title>
+    <style>
+      body {
+        background-color: #f7f7f7;
+        color: #333;
+        transition: background-color 0.5s ease;
+      }
+
+      #notifi {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #ff5733;
+        color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        display: none;
+      }
+
+      #notifi.active {
+        display: block;
+      }
+
+      #theme-toggle {
+        background-color: #fff;
+        color: #333;
+        border: 2px solid #333;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      .dark-mode {
+        background-color: #333;
+        color: #fff;
+      }
+
+      .dark-mode #notifi {
+        background-color: #c70039;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="theme-toggle">Toggle Theme</button>
+    <div id="notifi"></div>
+    <script>
+      const notification = document.getElementById('notifi');
+      const audio = new Audio('Rick_Roll_Meme_Sound_Effect_Never_(getmp3.pro).mp3');
+      audio.preload = 'auto';
+
+      function showNotification() {
+        notification.innerHTML = '';
+        fetch('https://official-joke-api.appspot.com/random_joke')
+          .then(response => response.json())
+          .then(data => {
+            notification.classList.add('active');
+            notification.innerHTML = data.setup + '<br />' + data.punchline;
+            audio.currentTime = 0;
+            audio.play();
+            setTimeout(() => {
+              notification.classList.remove('active');
+            }, 9000);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+      showNotification();
+      setInterval(showNotification, 10000);
+
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.getElementsByTagName('body')[0];
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+      });
+    </script>
+  </body>
+</html>
