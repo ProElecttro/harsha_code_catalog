@@ -1,0 +1,41 @@
+body {
+    background-color: #f7f7f7;
+    color: #333;
+    transition: background-color 0.5s ease;
+}
+
+#notifi {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #ff5733;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#notifi.active {
+    display: block;
+}
+
+#theme-toggle {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode #notifi {
+    background-color: #c70039;
+}
